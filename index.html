@@ -1,20 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Class Links</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Hub</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Use Inter as the default font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Simple animation for cards */
+        .folder-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .folder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
 </head>
-<body>
-  <h1>Welcome, Students!</h1>
-  <p>Click the links below to access your resources:</p>
-  <ul>
-    <li><a href="Mario - Coordinate system.docx">Grade 5 Coordinate system</a></li>
-    <li><a href="Grade 4B">Grade 4B</a></li>
-    <li><a href="Chart.xlsx">Grade 7 Chart</a></li>
-    <li><a href="Grade 10 HTML Quiz.html">Grade 10 HTML Quiz</a></li>
-    <li><a href="Microbit period 1.html">Grade 8 Microbit Hardware components</a></li>
-    <li><a href="Correcting the tags Grade 10-Recap.html">Grade 10 Correct the tags</a></li>
-    <li><a href="Exit slip- Heading, paragraph and break.html">Grade 10 Exit slip</a></li>
-      </ul>
+<body class="bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-indigo-600 text-white shadow-md">
+        <div class="container mx-auto px-6 py-8">
+            <h1 class="text-4xl font-bold">Classroom Hub</h1>
+            <p class="mt-2 text-lg text-indigo-200">Your central place for all class resources.</p>
+        </div>
+    </header>
+
+    <!-- Main Content: Grade Folders -->
+    <main class="container mx-auto px-6 py-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Select a Grade</h2>
+        
+        <!-- Grid container for the folders -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            
+            <!-- Grade 4 Card -->
+            <a href="grade4/" class="folder-card block bg-white rounded-lg overflow-hidden border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center space-x-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Grade 4</h3>
+                            <p class="text-gray-500">View resources</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Grade 5 Card -->
+            <a href="grade5/" class="folder-card block bg-white rounded-lg overflow-hidden border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center space-x-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Grade 5</h3>
+                            <p class="text-gray-500">View resources</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Grade 6 Card (Example) -->
+            <a href="grade6/" class="folder-card block bg-white rounded-lg overflow-hidden border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center space-x-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Grade 6</h3>
+                            <p class="text-gray-500">View resources</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Grade 7 Card -->
+            <a href="grade7/" class="folder-card block bg-white rounded-lg overflow-hidden border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center space-x-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Grade 7</h3>
+                            <p class="text-gray-500">View resources</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Grade 8 Card -->
+            <a href="grade8/" class="folder-card block bg-white rounded-lg overflow-hidden border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center space-x-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Grade 8</h3>
+                            <p class="text-gray-500">View resources</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Grade 9 Card (Example) -->
+            <a href="grade9/" class="folder-card block bg-white rounded-lg overflow-hidden border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center space-x-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Grade 9</h3>
+                            <p class="text-gray-500">View resources</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Grade 10 Card -->
+            <a href="grade10/" class="folder-card block bg-white rounded-lg overflow-hidden border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center space-x-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Grade 10</h3>
+                            <p class="text-gray-500">View resources</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="container mx-auto px-6 py-4">
+            <p class="text-center text-gray-500">&copy; 2024 Classroom Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
+
