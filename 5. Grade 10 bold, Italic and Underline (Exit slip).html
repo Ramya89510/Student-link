@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Formatting Tags Game</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better aesthetics and responsiveness */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Vibrant, merging gradient background */
+            background: linear-gradient(to right bottom, #e0f7fa, #e8f5e9); /* Light blue to light green */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* More rounded corners */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Stronger shadow */
+            padding: 3rem; /* Increased padding for more spacious feel */
+            max-width: 900px; /* Max width for content */
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        h1, h2 {
+            color: #2c5282; /* Darker blue for headings */
+            font-weight: 800; /* Extra bold headings */
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #4a5568; /* Slightly lighter text for paragraphs */
+            line-height: 1.7; /* Increased line height for readability */
+        }
+        pre {
+            background-color: #ebf8ff; /* Very light blue for code blocks */
+            padding: 1.25rem; /* More padding */
+            border-radius: 0.75rem; /* Rounded code blocks */
+            overflow-x: auto; /* Allow horizontal scrolling for long code */
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            text-align: left;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #bee3f8; /* Subtle border */
+        }
+        .button {
+            display: inline-block;
+            padding: 0.9rem 1.8rem; /* Larger buttons */
+            border-radius: 0.75rem;
+            font-weight: 700; /* Bolder text on buttons */
+            cursor: pointer;
+            transition: all 0.3s ease-in-out; /* Smoother transitions */
+            box-shadow: 0 6px 10px -2px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+            margin-top: 1.5rem;
+            border: none; /* Remove default border */
+        }
+        .button-primary {
+            background-color: #4299e1; /* Bright blue */
+            color: #ffffff;
+            background-image: linear-gradient(to right, #4299e1, #63b3ed); /* Gradient for primary button */
+        }
+        .button-primary:hover {
+            background-color: #3182ce; /* Darker blue on hover */
+            background-image: linear-gradient(to right, #3182ce, #4299e1); /* Darker gradient on hover */
+            transform: translateY(-3px); /* Lift effect */
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+        .button-secondary {
+            background-color: #a0aec0; /* Soft gray */
+            color: #ffffff;
+            background-image: linear-gradient(to right, #a0aec0, #cbd5e0); /* Gradient for secondary button */
+        }
+        .button-secondary:hover {
+            background-color: #718096; /* Darker gray on hover */
+            background-image: linear-gradient(to right, #718096, #a0aec0); /* Darker gradient on hover */
+            transform: translateY(-3px); /* Lift effect */
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+        .feedback-message {
+            margin-top: 1.5rem; /* More space */
+            padding: 1rem; /* More padding */
+            border-radius: 0.75rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .feedback-correct {
+            background-color: #d4edda; /* Lighter green */
+            color: #155724; /* Darker green text */
+            border: 1px solid #c3e6cb;
+        }
+        .feedback-incorrect {
+            background-color: #f8d7da; /* Lighter red */
+            color: #721c24; /* Darker red text */
+            border: 1px solid #f5c6cb;
+        }
+        textarea {
+            width: 100%;
+            min-height: 150px; /* Taller textarea */
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border: 2px solid #a7d9f7; /* Light blue border */
+            resize: vertical;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            color: #2d3748;
+            background-color: #f7fafc; /* Very light gray background */
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06); /* Inner shadow for depth */
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #3182ce; /* Darker blue border on focus */
+            box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.6); /* More prominent blue glow on focus */
+        }
+        .hidden {
+            display: none;
+        }
+        .explanation-section {
+            text-align: left;
+            margin-bottom: 2.5rem;
+            padding: 1rem;
+            background-color: #fdfefe; /* Slightly off-white for sections */
+            border-radius: 1rem;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+        }
+        .explanation-section h3 {
+            font-size: 1.35rem; /* Larger heading for sections */
+            font-weight: 700;
+            color: #2b6cb0; /* Medium blue */
+            margin-bottom: 0.75rem;
+        }
+        .explanation-section ul {
+            list-style: disc;
+            margin-left: 2rem; /* More indent */
+            margin-bottom: 1.25rem;
+        }
+        .explanation-section ul li {
+            margin-bottom: 0.6rem;
+        }
+        .example-output {
+            background-color: #e6fffa; /* Light teal for output */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 0.75rem;
+            font-style: italic;
+            color: #2c7a7b; /* Darker teal text */
+            border: 1px dashed #81e6d9; /* Dashed border for distinction */
+        }
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem; /* More space between buttons */
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+        .question-counter {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #718096;
+            margin-bottom: 1.25rem;
+        }
+        .instructions-box {
+            background-color: #fffbeb; /* Light yellow background */
+            border: 1px solid #fbd38d; /* Yellow border */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            color: #975a16; /* Dark yellow text */
+            font-weight: 600;
+        }
+        .instructions-box .text-blue-600 { /* Keep the blue instruction text */
+            color: #2b6cb0; /* Deeper blue for contrast */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Explanation Page -->
+        <div id="explanation-page">
+            <h1 class="text-3xl">HTML Formatting Tags: Font Styles</h1>
+            <p class="text-lg mb-6">
+                HTML (HyperText Markup Language) uses special tags to tell web browsers how to display content.
+                Today, we'll look at three common tags used to change the style of your text.
+            </p>
+
+            <div class="explanation-section">
+                <h3>1. Bold Text</h3>
+                <ul>
+                    <li>The <b>bold</b> tag is used to make text appear darker and heavier than the surrounding text.</li>
+                    <li>This is often used to emphasize important words or headings.</li>
+                    <li><strong>HTML Tag:</strong> <code>&lt;b&gt;</code> and <code>&lt;/b&gt;</code></li>
+                    <li><strong>How it works:</strong> You place the text you want to be bold <em>between</em> the opening <code>&lt;b&gt;</code> tag and the closing <code>&lt;/b&gt;</code> tag.</li>
+                </ul>
+                <p><strong>Example:</strong></p>
+                <pre>&lt;p&gt;This is some normal text, but &lt;b&gt;this part is bold&lt;/b&gt;.&lt;/p&gt;</pre>
+                <p><strong>What it looks like:</strong></p>
+                <div class="example-output">This is some normal text, but <b>this part is bold</b>.</div>
+            </div>
+
+            <div class="explanation-section">
+                <h3>2. Italic Text</h3>
+                <ul>
+                    <li>The <i>italic</i> tag is used to make text appear slanted.</li>
+                    <li>This is often used for titles of books, foreign words, or to give a slight emphasis.</li>
+                    <li><strong>HTML Tag:</strong> <code>&lt;i&gt;</code> and <code>&lt;/i&gt;</code></li>
+                    <li><strong>How it works:</strong> You place the text you want to be italic <em>between</em> the opening <code>&lt;i&gt;</code> tag and the closing <code>&lt;/i&gt;</code> tag.</li>
+                </ul>
+                <p><strong>Example:</strong></p>
+                <pre>&lt;p&gt;I enjoyed reading the book &lt;i&gt;"The Great Gatsby"&lt;/i&gt;.&lt;/p&gt;</pre>
+                <p><strong>What it looks like:</strong></p>
+                <div class="example-output">I enjoyed reading the book <i>"The Great Gatsby"</i>.</div>
+            </div>
+
+            <div class="explanation-section">
+                <h3>3. Underlined Text</h3>
+                <ul>
+                    <li>The <u>underline</u> tag is used to draw a line beneath the text.</li>
+                    <li>This can be used to highlight text, though it's less common for general emphasis on websites these days as it can be confused with hyperlinks.</li>
+                    <li><strong>HTML Tag:</strong> <code>&lt;u&gt;</code> and <code>&lt;/u&gt;</code></li>
+                    <li><strong>How it works:</strong> You place the text you want to be underlined <em>between</em> the opening <code>&lt;u&gt;</code> tag and the closing <code>&lt;/u&gt;</code> tag.</li>
+                </ul>
+                <p><strong>Example:</strong></p>
+                <pre>&lt;p&gt;Please remember to &lt;u&gt;bring your textbooks&lt;/u&gt; tomorrow.&lt;/p&gt;</pre>
+                <p><strong>What it looks like:</strong></p>
+                <div class="example-output">Please remember to <u>bring your textbooks</u> tomorrow.</div>
+            </div>
+
+            <button id="startGameBtn" class="button button-primary">Start the Correction Challenge!</button>
+        </div>
+
+        <!-- Game Page -->
+        <div id="game-page" class="hidden">
+            <h2 class="text-2xl">Correcting HTML Formatting Tags Challenge</h2>
+            <p class="mb-4">Read the prompt and the HTML snippet. Your task is to rewrite the snippet with the correct HTML tags to achieve the intended formatting.</p>
+            <div class="instructions-box">
+                <p class="font-semibold">
+                    <span class="text-blue-600">Instructions:</span> There are three questions. Copy the entire HTML code from the "Incorrect Code" box, paste it into the "Your Corrected Code" textbox, and then correct the tags.
+                </p>
+            </div>
+
+            <div class="question-counter" id="question-counter"></div>
+
+            <p id="question-prompt" class="text-lg font-medium mb-4"></p>
+            <p class="text-left font-semibold mb-2">Incorrect Code:</p>
+            <pre id="incorrect-code" class="mb-4"></pre>
+
+            <p class="text-left font-semibold mb-2">Your Corrected Code:</p>
+            <textarea id="user-input" placeholder="Type your corrected HTML code here..."></textarea>
+
+            <div id="feedback" class="feedback-message hidden"></div>
+
+            <div class="game-controls">
+                <button id="checkAnswerBtn" class="button button-primary">Check Answer</button>
+                <button id="nextQuestionBtn" class="button button-secondary hidden">Next Question</button>
+                <button id="restartGameBtn" class="button button-secondary hidden">Restart Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array of questions for the game
+        const questions = [
+            {
+                prompt: "The sentence below is supposed to have the word 'important' in bold. Correct the misplaced closing tag.",
+                incorrectCode: "<p>This is a </b>very<b> important message.</p>",
+                correctCode: "<p>This is a very <b>important</b> message.</p>"
+            },
+            {
+                prompt: "The phrase 'Coding is fun!' should be in italics. Correct the self-closing italic tag.",
+                incorrectCode: "<p><i>Coding is fun!<i></p>",
+                correctCode: "<p><i>Coding is fun!</i></p>"
+            },
+            {
+                prompt: "The entire sentence 'Remember to submit your assignments on time.' should be underlined. Correct the malformed closing tag.",
+                incorrectCode: "<p><u>Remember to submit your assignments on time.</u>/u></p>",
+                correctCode: "<p><u>Remember to submit your assignments on time.</u></p>"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        // Get references to HTML elements
+        const explanationPage = document.getElementById('explanation-page');
+        const gamePage = document.getElementById('game-page');
+        const startGameBtn = document.getElementById('startGameBtn');
+        const questionPrompt = document.getElementById('question-prompt');
+        const incorrectCode = document.getElementById('incorrect-code');
+        const userInput = document.getElementById('user-input');
+        const feedback = document.getElementById('feedback');
+        const checkAnswerBtn = document.getElementById('checkAnswerBtn');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const restartGameBtn = document.getElementById('restartGameBtn');
+        const questionCounter = document.getElementById('question-counter');
+
+        /**
+         * Switches the display between different pages.
+         * @param {string} pageId The ID of the page to show ('explanation-page' or 'game-page').
+         */
+        function showPage(pageId) {
+            explanationPage.classList.add('hidden');
+            gamePage.classList.add('hidden');
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        /**
+         * Normalizes an HTML string for robust comparison.
+         * Removes extra whitespace, converts to lowercase, and removes whitespace around tags.
+         * @param {string} htmlString The HTML string to normalize.
+         * @returns {string} The normalized HTML string.
+         */
+        function normalizeHtml(htmlString) {
+            // Remove leading/trailing whitespace
+            let normalized = htmlString.trim();
+            // Replace multiple spaces with a single space
+            normalized = normalized.replace(/\s+/g, ' ');
+            // Remove whitespace immediately inside/outside tags (e.g., "< p >" becomes "<p>")
+            normalized = normalized.replace(/\s*<\s*/g, '<');
+            normalized = normalized.replace(/\s*>\s*/g, '>');
+            // Ensure no space between closing tag and opening tag (e.g., "</b> <b>" becomes "</b><b>")
+            normalized = normalized.replace(/<\/\s*([a-zA-Z]+)\s*>\s*<\s*([a-zA-Z]+)\s*>/g, '</$1><$2>');
+            // Convert to lowercase for case-insensitive comparison of tags
+            normalized = normalized.toLowerCase();
+            return normalized;
+        }
+
+        /**
+         * Displays the current question on the game page.
+         */
+        function displayQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const question = questions[currentQuestionIndex];
+                questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+                questionPrompt.textContent = question.prompt;
+                incorrectCode.textContent = question.incorrectCode; // Use textContent to display raw HTML
+                userInput.value = ''; // Clear previous input
+                feedback.classList.add('hidden'); // Hide feedback
+                checkAnswerBtn.classList.remove('hidden'); // Show check button
+                nextQuestionBtn.classList.add('hidden'); // Hide next button
+                restartGameBtn.classList.add('hidden'); // Hide restart button
+                userInput.focus(); // Focus on the input area
+            } else {
+                // Game finished
+                questionCounter.textContent = ``; // Clear question counter
+                questionPrompt.textContent = "Congratulations! You've completed all the questions!";
+                incorrectCode.textContent = "";
+                userInput.value = '';
+                userInput.disabled = true; // Disable input
+                feedback.classList.remove('hidden');
+                feedback.className = 'feedback-message feedback-correct';
+                feedback.textContent = "Great job correcting the HTML tags!";
+                checkAnswerBtn.classList.add('hidden');
+                nextQuestionBtn.classList.add('hidden');
+                restartGameBtn.classList.remove('hidden'); // Show restart button
+            }
+        }
+
+        /**
+         * Checks the user's answer against the correct answer.
+         */
+        function checkAnswer() {
+            const userAnswer = userInput.value;
+            const correctAnswer = questions[currentQuestionIndex].correctCode;
+
+            // Normalize both strings for comparison
+            const normalizedUserAnswer = normalizeHtml(userAnswer);
+            const normalizedCorrectAnswer = normalizeHtml(correctAnswer);
+
+            feedback.classList.remove('hidden');
+            if (normalizedUserAnswer === normalizedCorrectAnswer) {
+                feedback.className = 'feedback-message feedback-correct';
+                feedback.textContent = "Correct! Well done!";
+                checkAnswerBtn.classList.add('hidden');
+                if (currentQuestionIndex < questions.length - 1) {
+                    nextQuestionBtn.classList.remove('hidden');
+                } else {
+                    restartGameBtn.classList.remove('hidden'); // Show restart if it's the last question
+                }
+                userInput.disabled = true; // Disable input after correct answer
+            } else {
+                feedback.className = 'feedback-message feedback-incorrect';
+                feedback.textContent = "Incorrect. Try again! Remember to check opening and closing tags carefully.";
+                // Keep checkAnswerBtn visible, allow user to try again
+            }
+        }
+
+        /**
+         * Moves to the next question or ends the game.
+         */
+        function nextQuestion() {
+            currentQuestionIndex++;
+            userInput.disabled = false; // Re-enable input for next question
+            displayQuestion();
+        }
+
+        /**
+         * Restarts the game from the beginning.
+         */
+        function restartGame() {
+            currentQuestionIndex = 0;
+            userInput.disabled = false; // Re-enable input
+            showPage('explanation-page'); // Go back to explanation page or directly to game
+            // If you want to go directly to the game:
+            // showPage('game-page');
+            // displayQuestion();
+        }
+
+        // Event Listeners
+        startGameBtn.addEventListener('click', () => {
+            showPage('game-page');
+            displayQuestion();
+        });
+
+        checkAnswerBtn.addEventListener('click', checkAnswer);
+        nextQuestionBtn.addEventListener('click', nextQuestion);
+        restartGameBtn.addEventListener('click', restartGame);
+
+        // Initial page load
+        window.onload = () => {
+            showPage('explanation-page');
+        };
+
+    </script>
+</body>
+</html>
