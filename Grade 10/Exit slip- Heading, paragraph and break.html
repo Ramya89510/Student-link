@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Quick Quiz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #333;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        #container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2em 3em;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hide sections by default */
+        #quiz, #results {
+            display: none;
+        }
+
+        h1 {
+            color: #3a3a3a;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            color: #5a5a5a;
+        }
+        
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .question-block {
+            text-align: left;
+            margin-bottom: 1.5em;
+        }
+
+        .question-block p {
+            font-weight: 600;
+            margin-bottom: 0.7em;
+        }
+
+        .option {
+            display: block;
+            margin-bottom: 0.5em;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #e0e0e0;
+        }
+
+        button {
+            background: #764ba2;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-top: 1em;
+        }
+
+        button:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        /* --- Results Styling --- */
+        #results-summary {
+            margin-top: 2em;
+        }
+
+        .result-block {
+            padding: 15px;
+            margin-bottom: 1em;
+            border-radius: 8px;
+            text-align: left;
+            border-left: 5px solid;
+        }
+
+        .result-block p {
+            font-size: 1em;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        /* Correct Answer Styling */
+        .correct {
+            background-color: #e8f5e9; /* Light green */
+            border-color: #4CAF50; /* Green */
+        }
+        
+        .correct strong {
+            color: #2e7d32;
+        }
+
+        /* Incorrect Answer Styling */
+        .incorrect {
+            background-color: #ffebee; /* Light red */
+            border-color: #f44336; /* Red */
+        }
+
+        .incorrect strong {
+            color: #b71c1c;
+        }
+
+        .user-answer {
+            color: #c62828; /* Darker red for the incorrect answer text */
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .correct-explanation {
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+
+        code {
+            background-color: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Page 1: Instructions -->
+        <div id="instructions">
+            <h1>Exit Slip: HTML Basics</h1>
+            <p>You have 3 quick questions to answer.</p>
+            <p>Read each question and choose the best option. Let's see what you remember!</p>
+            <button onclick="startQuiz()">Start Quiz!</button>
+        </div>
+
+        <!-- Page 2: The Quiz -->
+        <div id="quiz">
+            <h2>Quick Questions</h2>
+            <form id="quiz-form">
+                <!-- Question 1 -->
+                <div class="question-block">
+                    <p id="q1-text">1. Which tag is used to create a standard paragraph of text?</p>
+                    <label class="option"><input type="radio" name="q1" value="a"> <code>&lt;br&gt;</code></label>
+                    <label class="option"><input type="radio" name="q1" value="b"> <code>&lt;p&gt;</code></label>
+                    <label class="option"><input type="radio" name="q1" value="c"> <code>&lt;h1&gt;</code></label>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-block">
+                    <p id="q2-text">2. Which heading tag creates the LARGEST and most important heading?</p>
+                    <label class="option"><input type="radio" name="q2" value="a"> <code>&lt;h1&gt;</code></label>
+                    <label class="option"><input type="radio" name="q2" value="b"> <code>&lt;h6&gt;</code></label>
+                    <label class="option"><input type="radio" name="q2" value="c"> <code>&lt;h3&gt;</code></label>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-block">
+                    <p id="q3-text">3. What is the main purpose of the <code>&lt;br&gt;</code> tag?</p>
+                    <label class="option"><input type="radio" name="q3" value="a"> To make text bold.</label>
+                    <label class="option"><input type="radio" name="q3" value="b"> To start a new paragraph with space around it.</label>
+                    <label class="option"><input type="radio" name="q3" value="c"> To insert a single line break.</label>
+                </div>
+
+                <button type="button" onclick="showResults()">Check Answers</button>
+            </form>
+        </div>
+
+        <!-- Page 3: Results & Recap -->
+        <div id="results">
+            <h1 id="results-title">Recap & Correct Answers</h1>
+            <h2 id="score"></h2>
+            <div id="results-summary">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+            <!-- Action buttons -->
+            <button id="try-again-button" onclick="location.reload()">Try Again</button>
+            <button id="close-button" onclick="closeQuiz()" style="display: none;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        // Store correct answers and explanations
+        const quizData = {
+            q1: {
+                correct: 'b',
+                text: "The <code>&lt;p&gt;</code> tag is used for a <strong>paragraph</strong>."
+            },
+            q2: {
+                correct: 'a',
+                text: "The <code>&lt;h1&gt;</code> tag creates the <strong>largest</strong> heading."
+            },
+            q3: {
+                correct: 'c',
+                text: "The <code>&lt;br&gt;</code> tag is for a line <strong>break</strong>."
+            }
+        };
+
+        // --- FUNCTIONS ---
+
+        // Function to switch from instructions to the quiz
+        function startQuiz() {
+            document.getElementById('instructions').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+        }
+
+        // Function to "close" the quiz by hiding it
+        function closeQuiz() {
+            document.getElementById('container').style.display = 'none';
+        }
+
+        // Function to check answers and display the results page
+        function showResults() {
+            const form = document.getElementById('quiz-form');
+            const resultsSummary = document.getElementById('results-summary');
+            let score = 0;
+            
+            // Clear any previous results
+            resultsSummary.innerHTML = '';
+
+            // Loop through each question in our quizData
+            for (const question in quizData) {
+                // Find the user's selected answer for the current question
+                const userAnswer = form.elements[question].value;
+                const userChoiceElement = form.querySelector(`input[name="${question}"]:checked`);
+                const questionText = document.getElementById(`${question}-text`).textContent;
+
+                const resultBlock = document.createElement('div');
+                resultBlock.classList.add('result-block');
+
+                let innerHTML = `<p>${questionText}</p>`;
+
+                // Check if an answer was selected
+                if (!userAnswer) {
+                    resultBlock.classList.add('incorrect');
+                    innerHTML += `<p class="user-answer">You did not answer this question.</p>`;
+                    innerHTML += `<p class="correct-explanation">${quizData[question].text}</p>`;
+                } else if (userAnswer === quizData[question].correct) {
+                    // Correct Answer
+                    score++;
+                    resultBlock.classList.add('correct');
+                    innerHTML += `<p class="correct-explanation">${quizData[question].text}</p>`;
+                } else {
+                    // Incorrect Answer
+                    resultBlock.classList.add('incorrect');
+                    const userAnswerText = userChoiceElement.parentElement.textContent.trim();
+                    innerHTML += `<p class="user-answer">Your answer: ${userAnswerText}</p>`;
+                    innerHTML += `<p class="correct-explanation"><strong>Correct:</strong> ${quizData[question].text}</p>`;
+                }
+                
+                resultBlock.innerHTML = innerHTML;
+                resultsSummary.appendChild(resultBlock);
+            }
+
+            // Get buttons
+            const tryAgainBtn = document.getElementById('try-again-button');
+            const closeBtn = document.getElementById('close-button');
+            
+            // Check score and show appropriate message and button
+            if (score === 3) {
+                document.getElementById('results-title').textContent = 'Perfect Score!';
+                document.getElementById('score').textContent = 'You answered all 3 questions correctly. Great job!';
+                tryAgainBtn.style.display = 'none';
+                closeBtn.style.display = 'inline-block';
+            } else {
+                document.getElementById('results-title').textContent = 'Recap & Correct Answers';
+                document.getElementById('score').textContent = `You scored ${score} out of 3.`;
+                tryAgainBtn.style.display = 'inline-block';
+                closeBtn.style.display = 'none';
+            }
+
+            // Switch to the results view
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

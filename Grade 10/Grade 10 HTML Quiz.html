@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & Internet Challenge</title>
+    <style>
+        /* Google Font for a modern, clean look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fira+Code:wght@500&display=swap');
+
+        /* Define CSS Variables for consistent theming */
+        :root {
+            --bg-color: #1e1e1e;
+            --editor-bg: #2d2d2d;
+            --sidebar-bg: #252526;
+            --primary-text: #d4d4d4;
+            --secondary-text: #8a8a8a;
+            --accent-blue: #007acc;
+            --accent-green: #6a9955;
+            --accent-red: #d16969;
+            --tag-color: #569cd6;
+            --text-content-color: #ce9178;
+            --border-color: #3e3e42;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --correct-bg: #4CAF5033; /* Green with transparency */
+            --correct-border: #4CAF50;
+            --incorrect-bg: #F4433633; /* Red with transparency */
+            --incorrect-border: #F44336;
+            --option-bg: #3c3c3c;
+            --option-border: #555;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: var(--sidebar-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* Gap between sections */
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: var(--secondary-text);
+            margin-bottom: 1.5rem;
+        }
+
+        /* General Panel Styling (used for element bank, code editor, and quiz/drag-drop sections) */
+        .panel {
+            border-radius: 8px;
+            padding: 1rem;
+            width: 100%;
+            min-height: 150px; /* Adjusted for quiz/drag-drop sections */
+            box-sizing: border-box;
+            transition: border-color 0.3s, background-color 0.3s;
+            background-color: var(--editor-bg); /* Default background for content panels */
+            border: 1px solid var(--border-color);
+            text-align: left; /* Align content inside panels to left */
+        }
+
+        .panel h2 {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            margin-top: 0;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Quiz Section Styles --- */
+        .question {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--primary-text);
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .option {
+            background-color: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s, border-color 0.2s;
+            text-align: center;
+            flex-grow: 1;
+            min-width: 120px;
+            color: var(--primary-text);
+        }
+        .option:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+        }
+        .option.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+        }
+        .option.incorrect {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+        }
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+            min-height: 20px; /* Prevent layout shift */
+        }
+        .feedback-correct {
+            color: var(--accent-green);
+        }
+        .feedback-incorrect {
+            color: var(--accent-red);
+        }
+
+        /* --- Drag and Drop (Old Game) Section Styles --- */
+        .drag-items, .drop-targets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .draggable, .dropped-item {
+            background-color: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-weight: bold;
+            text-align: center;
+            color: var(--primary-text);
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .draggable {
+            cursor: grab;
+        }
+        .draggable:hover {
+            background-color: #555;
+        }
+        .drop-target {
+            background-color: var(--editor-bg);
+            border: 2px dashed var(--border-color);
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-style: italic;
+            color: var(--secondary-text);
+        }
+        .drop-target.hover, .drop-target.drag-over { /* Combined for consistency */
+            background-color: #2a3a4a;
+            border-color: var(--accent-blue);
+            border-style: solid;
+        }
+        .dropped-item.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+        }
+        .dropped-item.incorrect {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+        }
+
+        /* --- HTML Structure Challenge (New Game) Styles --- */
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .game-area {
+                flex-direction: row;
+            }
+        }
+        .element-bank {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        .code-editor {
+            background-color: var(--editor-bg);
+            border: 2px dashed var(--border-color);
+            min-height: 350px; /* Larger min-height for code editor */
+        }
+        .element {
+            background-color: var(--sidebar-bg);
+            padding: 0.7rem 1.2rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            cursor: grab;
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+            text-align: left;
+            user-select: none;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+        }
+        .element:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .element:active {
+            cursor: grabbing;
+        }
+        .element.dragging {
+            opacity: 0.4;
+        }
+        .element.tag-brackets { color: var(--tag-color); }
+        .element.text-content { color: var(--text-content-color); }
+        .code-editor .indent-1 { margin-left: 2rem; }
+        .code-editor .indent-2 { margin-left: 4rem; }
+
+        /* --- Buttons --- */
+        .buttons, .game-buttons { /* Combined for general button groups */
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        }
+        button {
+            padding: 0.8rem 1.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        button:disabled {
+            background-color: #3e3e42;
+            color: #8a8a8a;
+            border-color: #3e3e42;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Specific button colors */
+        .next-btn, .drag-drop-check-btn, .verify-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+        .next-btn:hover, .drag-drop-check-btn:hover, .verify-btn:hover {
+            background-color: #008ae6;
+        }
+        .reset-btn, .reset-all-btn {
+            background-color: var(--editor-bg);
+            color: var(--primary-text);
+        }
+        .reset-btn:hover, .reset-all-btn:hover {
+            background-color: #3e3e42;
+        }
+
+        /* Score Display */
+        .score-display {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 2rem;
+            color: var(--accent-green);
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--editor-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>HTML & Internet Challenge</h1>
+        <p class="subtitle">Test your knowledge and build a webpage!</p>
+
+        <!-- Stage 1: Internet Terms Quiz -->
+        <div class="panel" id="internet-quiz-section">
+            <h2>Internet Terms Quiz</h2>
+            <div class="question-container">
+                <!-- Quiz questions will be injected here by JavaScript -->
+            </div>
+            <div class="feedback" id="quiz-feedback"></div>
+            <div class="game-buttons">
+                <button class="next-btn" id="next-question-btn" disabled>Next Question</button>
+            </div>
+        </div>
+
+        <!-- Stage 2: HTML Tag Matching (Drag & Drop) -->
+        <div class="panel" id="html-tag-matching-section" style="display: none;">
+            <h2>HTML Tag Matching</h2>
+            <p class="subtitle">Drag the HTML tags to their correct descriptions.</p>
+            <div class="drag-items" id="old-drag-items">
+                <!-- Draggable items will be dynamically shuffled and injected here -->
+            </div>
+            <div class="drop-targets" id="old-drop-targets">
+                <div class="drop-target" data-tag="html">
+                    <p>Defines the root of an HTML document</p>
+                </div>
+                <div class="drop-target" data-tag="head">
+                    <p>Contains meta-information about the HTML document (e.g., links to stylesheets, script)</p>
+                </div>
+                <div class="drop-target" data-tag="title">
+                    <p>Specifies the title of the HTML document (shown in browser tab)</p>
+                </div>
+                <div class="drop-target" data-tag="body">
+                    <p>Contains all the visible page content, like text, images, links, etc.</p>
+                </div>
+            </div>
+            <div class="feedback" id="old-drag-drop-feedback"></div>
+            <div class="game-buttons">
+                <button class="drag-drop-check-btn" id="check-old-drag-drop-btn">Check My Answers</button>
+            </div>
+        </div>
+
+        <!-- Stage 3: HTML Structure Challenge (New Game) -->
+        <div class="panel" id="html-structure-challenge-section" style="display: none;">
+            <h2>HTML Structure Challenge</h2>
+            <p class="subtitle">Drag elements into the editor to build a valid webpage.</p>
+            <div class="game-area">
+                <div class="panel element-bank" id="element-bank">
+                    <h2>Elements Bank</h2>
+                </div>
+                <div class="panel code-editor" id="code-editor">
+                    <h2>Code Editor</h2>
+                </div>
+            </div>
+            <div class="game-buttons">
+                <button id="verify-btn" class="verify-btn">Verify Code</button>
+                <button id="reset-btn" class="reset-btn">Reset This Challenge</button>
+            </div>
+            <p class="feedback" id="feedback"></p>
+        </div>
+
+        <div class="score-display" id="final-score-display" style="display: none;"></div>
+        <div class="game-buttons">
+            <button class="reset-all-btn" id="reset-all-btn" style="display: none;">Start Over</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Element Selection ---
+        const internetQuizSection = document.getElementById('internet-quiz-section');
+        const quizQuestionContainer = internetQuizSection.querySelector('.question-container');
+        const quizNextButton = document.getElementById('next-question-btn');
+        const quizFeedbackElement = document.getElementById('quiz-feedback');
+
+        const htmlTagMatchingSection = document.getElementById('html-tag-matching-section');
+        const oldDragItemsContainer = document.getElementById('old-drag-items');
+        const oldDropTargetsContainer = document.getElementById('old-drop-targets');
+        const oldDragDropFeedbackElement = document.getElementById('old-drag-drop-feedback');
+        const checkOldDragDropButton = document.getElementById('check-old-drag-drop-btn');
+
+        const htmlStructureChallengeSection = document.getElementById('html-structure-challenge-section');
+        const elementBank = document.getElementById('element-bank');
+        const codeEditor = document.getElementById('code-editor');
+        const verifyBtn = document.getElementById('verify-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const structureFeedbackEl = document.getElementById('feedback');
+
+        const finalScoreDisplay = document.getElementById('final-score-display');
+        const resetAllButton = document.getElementById('reset-all-btn');
+
+        // --- Game Data ---
+        // Internet Quiz Questions
+        const internetQuizQuestions = [
+            {
+                question: "What is a global system of interconnected computer networks that uses the Internet protocol suite (TCP/IP) to communicate between networks and devices?",
+                options: ["WWW", "Web Browser", "Internet", "Website"],
+                correct: "Internet"
+            },
+            {
+                question: "What is a system of interlinked hypertext documents accessed via the Internet, making up a vast collection of interconnected web pages?",
+                options: ["HTTP", "WWW", "Webpage", "Web Browser"],
+                correct: "WWW"
+            },
+            {
+                question: "What is a software application for retrieving, presenting, and traversing information resources on the World Wide Web?",
+                options: ["Website", "Web Browser", "Internet", "HTTP"],
+                correct: "Web Browser"
+            },
+            {
+                question: "What is a collection of related web pages, including multimedia content, typically identified with a common domain name and published on at least one web server?",
+                options: ["Webpage", "HTTP", "Website", "HTTPS"],
+                correct: "Website"
+            },
+            {
+                question: "What is a single document accessible via a web browser, often part of a larger website?",
+                options: ["Webpage", "WWW", "Internet", "Web Browser"],
+                correct: "Webpage"
+            },
+            {
+                question: "Which protocol is the foundation of data communication for the World Wide Web, used to transmit data from web servers to web browsers?",
+                options: ["HTTPS", "FTP", "HTTP", "SMTP"],
+                correct: "HTTP"
+            },
+            {
+                question: "Which protocol is the secure version of HTTP, meaning communications between your browser and the website are encrypted?",
+                options: ["HTTP", "FTP", "HTTPS", "TCP/IP"],
+                correct: "HTTPS"
+            }
+        ];
+
+        // Data for the old HTML tag matching game
+        const oldHtmlTags = [
+            { id: 'old-drag-html', text: '&lt;html&gt;' },
+            { id: 'old-drag-head', text: '&lt;head&gt;' },
+            { id: 'old-drag-title', text: '&lt;title&gt;' },
+            { id: 'old-drag-body', text: '&lt;body&gt;' }
+        ];
+
+        // HTML Structure Challenge Elements
+        const htmlStructureElements = [
+            { id: 'html-open', text: '&lt;html&gt;', indent: '', type: 'tag-brackets' },
+            { id: 'head-open', text: '&lt;head&gt;', indent: 'indent-1', type: 'tag-brackets' },
+            { id: 'title-open', text: '&lt;title&gt;', indent: 'indent-2', type: 'tag-brackets' },
+            { id: 'title-text', text: 'My Awesome Site', indent: 'indent-2', type: 'text-content' },
+            { id: 'title-close', text: '&lt;/title&gt;', indent: 'indent-2', type: 'tag-brackets' },
+            { id: 'head-close', text: '&lt;/head&gt;', indent: 'indent-1', type: 'tag-brackets' },
+            { id: 'body-open', text: '&lt;body&gt;', indent: 'indent-1', type: 'tag-brackets' },
+            { id: 'body-text', text: 'Welcome to my page!', indent: 'indent-2', type: 'text-content' },
+            { id: 'body-close', text: '&lt;/body&gt;', indent: 'indent-1', type: 'tag-brackets' },
+            { id: 'html-close', text: '&lt;/html&gt;', indent: '', type: 'tag-brackets' },
+        ];
+        const correctHtmlStructureOrderIds = htmlStructureElements.map(el => el.id);
+
+        let currentQuizQuestionIndex = 0;
+        let totalScore = 0;
+        const maxQuizScore = internetQuizQuestions.length;
+        const maxOldDragDropScore = 4; // For the 4 HTML tags
+        const maxNewStructureScore = htmlStructureElements.length; // For the 10 HTML structure elements
+
+        // --- Game Flow Management ---
+        function showSection(sectionId) {
+            const sections = [internetQuizSection, htmlTagMatchingSection, htmlStructureChallengeSection, finalScoreDisplay, resetAllButton];
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+
+        function startGame() {
+            totalScore = 0;
+            currentQuizQuestionIndex = 0;
+            loadInternetQuizQuestion();
+            showSection('internet-quiz-section');
+            resetAllButton.style.display = 'none'; // Hide reset all button at start
+            finalScoreDisplay.style.display = 'none';
+        }
+
+        // --- Stage 1: Internet Terms Quiz ---
+        function loadInternetQuizQuestion() {
+            if (currentQuizQuestionIndex < internetQuizQuestions.length) {
+                const q = internetQuizQuestions[currentQuizQuestionIndex];
+                quizQuestionContainer.innerHTML = `
+                    <div class="question">${q.question}</div>
+                    <div class="options">
+                        ${q.options.map(option => `<div class="option" data-answer="${option}">${option}</div>`).join('')}
+                    </div>
+                `;
+                quizQuestionContainer.querySelectorAll('.option').forEach(option => {
+                    option.addEventListener('click', handleInternetQuizOptionClick);
+                });
+                quizNextButton.disabled = true;
+                quizFeedbackElement.textContent = '';
+                quizFeedbackElement.className = 'feedback'; // Reset feedback class
+            } else {
+                // All quiz questions answered, proceed to HTML Tag Matching
+                showSection('html-tag-matching-section');
+                setupOldDragAndDrop();
+            }
+        }
+
+        function handleInternetQuizOptionClick(event) {
+            const selectedOption = event.target;
+            const userAnswer = selectedOption.dataset.answer;
+            const q = internetQuizQuestions[currentQuizQuestionIndex];
+
+            // Disable all options after selection
+            quizQuestionContainer.querySelectorAll('.option').forEach(option => {
+                option.removeEventListener('click', handleInternetQuizOptionClick);
+                option.style.cursor = 'default';
+            });
+
+            if (userAnswer === q.correct) {
+                selectedOption.classList.add('correct');
+                quizFeedbackElement.textContent = "Correct!";
+                quizFeedbackElement.classList.add('feedback-correct');
+                totalScore++;
+            } else {
+                selectedOption.classList.add('incorrect');
+                const correctOption = quizQuestionContainer.querySelector(`.option[data-answer="${q.correct}"]`);
+                if (correctOption) {
+                    correctOption.classList.add('correct');
+                }
+                quizFeedbackElement.textContent = `Incorrect. The correct answer was "${q.correct}".`;
+                quizFeedbackElement.classList.add('feedback-incorrect');
+            }
+            quizNextButton.disabled = false;
+        }
+
+        quizNextButton.addEventListener('click', () => {
+            currentQuizQuestionIndex++;
+            loadInternetQuizQuestion();
+        });
+
+        // --- Stage 2: HTML Tag Matching (Old Game's Drag & Drop) ---
+        let oldDraggedItem = null;
+
+        function setupOldDragAndDrop() {
+            // Reset state for this section
+            oldDragItemsContainer.innerHTML = ''; // Clear existing items
+
+            // Shuffle the oldHtmlTags array
+            const shuffledTags = [...oldHtmlTags].sort(() => Math.random() - 0.5);
+
+            // Append shuffled tags to the container
+            shuffledTags.forEach(tag => {
+                const div = document.createElement('div');
+                div.classList.add('draggable');
+                div.draggable = true;
+                div.id = tag.id;
+                div.innerHTML = tag.text;
+                oldDragItemsContainer.appendChild(div);
+            });
+
+            oldDropTargetsContainer.innerHTML = `
+                <div class="drop-target" data-tag="html">
+                    <p>Defines the root of an HTML document</p>
+                </div>
+                <div class="drop-target" data-tag="head">
+                    <p>Contains meta-information about the HTML document (e.g., links to stylesheets, script)</p>
+                </div>
+                <div class="drop-target" data-tag="title">
+                    <p>Specifies the title of the HTML document (shown in browser tab)</p>
+                </div>
+                <div class="drop-target" data-tag="body">
+                    <p>Contains all the visible page content, like text, images, links, etc.</p>
+                </div>
+            `;
+            oldDragDropFeedbackElement.textContent = '';
+            oldDragDropFeedbackElement.className = 'feedback';
+            checkOldDragDropButton.disabled = false;
+
+
+            const draggables = oldDragItemsContainer.querySelectorAll('.draggable');
+            const dropTargets = oldDropTargetsContainer.querySelectorAll('.drop-target');
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    oldDraggedItem = e.target;
+                    e.dataTransfer.setData('text/plain', e.target.id);
+                    setTimeout(() => {
+                        draggable.style.display = 'none';
+                    }, 0);
+                });
+
+                draggable.addEventListener('dragend', () => {
+                    setTimeout(() => {
+                        if (oldDraggedItem) { // Only show if it wasn't dropped
+                            oldDraggedItem.style.display = 'block';
+                            oldDraggedItem = null;
+                        }
+                    }, 0);
+                });
+            });
+
+            dropTargets.forEach(target => {
+                target.addEventListener('dragover', (e) => {
+                    e.preventDefault(); // Allows drop
+                    target.classList.add('drag-over');
+                });
+
+                target.addEventListener('dragleave', () => {
+                    target.classList.remove('drag-over');
+                });
+
+                target.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    target.classList.remove('drag-over');
+                    const data = e.dataTransfer.getData('text/plain');
+                    const element = document.getElementById(data);
+
+                    // If a tag is already dropped here, return it to its original spot
+                    if (target.querySelector('.dropped-item')) {
+                        const existingItem = target.querySelector('.dropped-item');
+                        oldDragItemsContainer.appendChild(existingItem);
+                        existingItem.classList.remove('dropped-item', 'correct', 'incorrect'); // Remove classes
+                        existingItem.style.display = 'block'; // Make it visible again
+                    }
+
+                    // Append the new item
+                    const droppedDiv = document.createElement('div');
+                    droppedDiv.classList.add('dropped-item');
+                    droppedDiv.textContent = element.textContent;
+                    droppedDiv.dataset.originalId = element.id; // Store original ID for checking
+
+                    target.appendChild(droppedDiv);
+                    element.style.display = 'none'; // Hide the original draggable item
+                    oldDraggedItem = null; // Clear dragged item as it's now dropped
+                });
+            });
+        }
+
+        checkOldDragDropButton.addEventListener('click', () => {
+            let allCorrect = true;
+            let currentDragDropScore = 0;
+            const dropTargets = oldDropTargetsContainer.querySelectorAll('.drop-target');
+
+            dropTargets.forEach(target => {
+                const droppedItem = target.querySelector('.dropped-item');
+                const correctTag = target.dataset.tag; // e.g., 'html', 'head'
+
+                if (droppedItem) {
+                    const droppedOriginalId = droppedItem.dataset.originalId;
+
+                    if (droppedOriginalId.includes(correctTag)) {
+                        target.style.borderColor = 'var(--correct-border)';
+                        droppedItem.classList.add('correct');
+                        droppedItem.classList.remove('incorrect');
+                        currentDragDropScore++;
+                    } else {
+                        allCorrect = false;
+                        target.style.borderColor = 'var(--incorrect-border)';
+                        droppedItem.classList.add('incorrect');
+                        droppedItem.classList.remove('correct');
+                    }
+                } else {
+                    allCorrect = false;
+                    target.style.borderColor = 'var(--incorrect-border)'; // Indicate missing
+                }
+            });
+
+            if (allCorrect) {
+                oldDragDropFeedbackElement.textContent = "Great job! All HTML tags matched correctly!";
+                oldDragDropFeedbackElement.classList.add('feedback-correct');
+            } else {
+                oldDragDropFeedbackElement.textContent = "Some tags are in the wrong place. Review and try again!";
+                oldDragDropFeedbackElement.classList.add('feedback-incorrect');
+            }
+
+            totalScore += currentDragDropScore; // Add drag and drop score to total
+            checkOldDragDropButton.disabled = true; // Prevent re-checking
+            
+            // Proceed to the next stage after a short delay
+            setTimeout(() => {
+                showSection('html-structure-challenge-section');
+                initializeHtmlStructureChallenge();
+            }, 1500);
+        });
+
+        // --- Stage 3: HTML Structure Challenge (New Game) ---
+        function initializeHtmlStructureChallenge() {
+            elementBank.innerHTML = '<h2>Elements Bank</h2>'; // Clear previous elements
+            codeEditor.innerHTML = '<h2>Code Editor</h2>'; // Clear previous elements
+            structureFeedbackEl.textContent = '';
+            structureFeedbackEl.className = 'feedback';
+            verifyBtn.disabled = false; // Enable verify button
+            
+            const shuffledElements = [...htmlStructureElements].sort(() => Math.random() - 0.5);
+
+            shuffledElements.forEach(elInfo => {
+                const elDiv = document.createElement('div');
+                elDiv.id = elInfo.id;
+                elDiv.innerHTML = elInfo.text;
+                elDiv.className = `element ${elInfo.type}`;
+                elDiv.dataset.indent = elInfo.indent;
+                elDiv.draggable = true;
+                elementBank.appendChild(elDiv);
+            });
+            
+            addHtmlStructureDragListeners();
+        }
+
+        function addHtmlStructureDragListeners() {
+            const elements = document.querySelectorAll('#element-bank .element'); // Select only from element bank initially
+            elements.forEach(el => {
+                el.addEventListener('dragstart', handleHtmlStructureDragStart);
+                el.addEventListener('dragend', handleHtmlStructureDragEnd);
+            });
+        }
+        
+        function handleHtmlStructureDragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.id);
+            e.dataTransfer.effectAllowed = 'move';
+            setTimeout(() => e.target.classList.add('dragging'), 0);
+        }
+
+        function handleHtmlStructureDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+
+        // --- Drop Zone: Code Editor for HTML Structure ---
+        codeEditor.addEventListener('dragover', handleDragOver);
+        codeEditor.addEventListener('dragenter', () => codeEditor.classList.add('drag-over'));
+        codeEditor.addEventListener('dragleave', () => codeEditor.classList.remove('drag-over'));
+        codeEditor.addEventListener('drop', (e) => {
+            e.preventDefault();
+            codeEditor.classList.remove('drag-over');
+            const id = e.dataTransfer.getData('text/plain');
+            const draggableElement = document.getElementById(id);
+            if (!draggableElement) return;
+
+            const afterElement = getDragAfterElement(codeEditor, e.clientY);
+            // Ensure the element gets its original indent and type classes when dropped
+            const originalTypeClass = draggableElement.classList.contains('text-content') ? 'text-content' : 'tag-brackets';
+            draggableElement.className = `element ${draggableElement.dataset.indent} ${originalTypeClass}`;
+            
+            if (afterElement == null) {
+                codeEditor.appendChild(draggableElement);
+            } else {
+                codeEditor.insertBefore(draggableElement, afterElement);
+            }
+            // Re-add drag listeners in case the element was moved from element bank
+            draggableElement.addEventListener('dragstart', handleHtmlStructureDragStart);
+            draggableElement.addEventListener('dragend', handleHtmlStructureDragEnd);
+        });
+
+        // --- Drop Zone: Element Bank for HTML Structure ---
+        elementBank.addEventListener('dragover', handleDragOver);
+        elementBank.addEventListener('dragenter', () => elementBank.classList.add('drag-over'));
+        elementBank.addEventListener('dragleave', () => elementBank.classList.remove('drag-over'));
+        elementBank.addEventListener('drop', (e) => {
+            e.preventDefault();
+            elementBank.classList.remove('drag-over');
+            const id = e.dataTransfer.getData('text/plain');
+            const draggableElement = document.getElementById(id);
+
+            if (draggableElement && codeEditor.contains(draggableElement)) {
+                // Remove indent class when returning to bank
+                const originalTypeClass = draggableElement.classList.contains('text-content') ? 'text-content' : 'tag-brackets';
+                draggableElement.className = `element ${originalTypeClass}`;
+                elementBank.appendChild(draggableElement);
+            }
+        });
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.element:not(.dragging)')];
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+        
+        // --- HTML Structure Game Actions ---
+        function getHint(userOrder) {
+            // Find the first point of error
+            for (let i = 0; i < correctHtmlStructureOrderIds.length; i++) {
+                // If user's code is shorter than correct, the error is at the end of their code
+                if (i >= userOrder.length) {
+                    const prevElementId = userOrder.length > 0 ? userOrder[userOrder.length - 1] : null;
+                    const prevElementText = prevElementId ? htmlStructureElements.find(el => el.id === prevElementId)?.text : "the very beginning";
+                    return `Something is missing. What comes after ${prevElementText}?`;
+                }
+
+                // If we find a mismatch
+                if (userOrder[i] !== correctHtmlStructureOrderIds[i]) {
+                    const correctTagInfo = htmlStructureElements.find(el => el.id === correctHtmlStructureOrderIds[i]);
+                    switch(correctTagInfo.id) {
+                        case 'html-open':
+                            return "Hint: What's the very first tag in any HTML document?";
+                        case 'head-open':
+                            return "Hint: After `<html>`, what's the first section that holds metadata?";
+                        case 'title-open':
+                        case 'title-text':
+                        case 'title-close':
+                            return "Hint: The page's title belongs inside the `<head>` section. Check the order there.";
+                        case 'head-close':
+                            return "Hint: Have you closed the `<head>` section correctly?";
+                        case 'body-open':
+                            return "Hint: After the `<head>` section is closed, what major section comes next?";
+                        case 'body-text':
+                            return "Hint: Visible content, like text, goes inside the `<body>`.";
+                        case 'body-close':
+                            return "Hint: Don't forget to close the `<body>` section.";
+                        case 'html-close':
+                            return "Hint: What's the very last tag that closes the entire document?";
+                        default:
+                            return "Hint: Something's out of order. Check the nesting of your tags carefully.";
+                    }
+                }
+            }
+            // If the user's code is longer than the correct one but correct so far
+            if(userOrder.length > correctHtmlStructureOrderIds.length) {
+                return "Hint: It looks like you have too many elements. Try removing one.";
+            }
+
+            return "Hint: Something's out of order. Check the nesting of your tags carefully.";
+        }
+
+        function verifyHtmlStructureCode() {
+            const currentElements = codeEditor.querySelectorAll('.element:not(h2)'); // Exclude the H2 title
+            const currentOrderIds = Array.from(currentElements).map(el => el.id);
+            let currentStructureScore = 0;
+
+            // Calculate score for correct elements in correct positions
+            for(let i = 0; i < Math.min(currentOrderIds.length, correctHtmlStructureOrderIds.length); i++) {
+                if(currentOrderIds[i] === correctHtmlStructureOrderIds[i]) {
+                    currentStructureScore++;
+                }
+            }
+
+            if (JSON.stringify(currentOrderIds) === JSON.stringify(correctHtmlStructureOrderIds)) {
+                structureFeedbackEl.textContent = '✅ Success! The structure is perfect.';
+                structureFeedbackEl.classList.add('feedback-correct');
+                totalScore += maxNewStructureScore; // Add full score for this section
+                verifyBtn.disabled = true; // Disable verify button on success
+                showFinalScore();
+            } else {
+                structureFeedbackEl.innerHTML = `❌ Not quite right. <br>${getHint(currentOrderIds)}`;
+                structureFeedbackEl.classList.add('feedback-incorrect');
+                // Do not add partial score here, user needs to get it fully correct for this section's points
+            }
+        }
+
+        // --- Final Score Display ---
+        function showFinalScore() {
+            showSection('final-score-display');
+            finalScoreDisplay.textContent = `Game Over! Your total score: ${totalScore} / ${maxQuizScore + maxOldDragDropScore + maxNewStructureScore}`;
+            resetAllButton.style.display = 'block'; // Show reset all button
+        }
+
+        // --- Event Listeners for Buttons ---
+        verifyBtn.addEventListener('click', verifyHtmlStructureCode);
+        resetBtn.addEventListener('click', initializeHtmlStructureChallenge); // Resets only the HTML structure challenge
+        resetAllButton.addEventListener('click', startGame); // Resets the entire game
+
+        // --- Start the game on page load ---
+        document.addEventListener('DOMContentLoaded', startGame);
+    </script>
+</body>
+</html>
