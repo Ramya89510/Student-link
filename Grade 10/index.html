@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +21,7 @@
             flex-direction: column;
             align-items: center; /* Centers content horizontally */
             justify-content: center; /* Centers content vertically */
-            padding: 1rem; /* Increased padding to make the side thickness a bit more */
+            padding: 0.5rem; /* Reduced padding for a thin black background */
             box-sizing: border-box; /* Includes padding in element's total width and height */
         }
 
@@ -36,9 +35,9 @@
             padding: 2.5rem; /* Generous padding inside the box */
             border-radius: 1.5rem; /* Significantly rounded corners */
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Softer shadow for lighter background */
-            max-width: 280px; /* Further reduced max-width to make textboxes much narrower */
-            width: 90%; /* Use a percentage width for responsiveness, allowing it to expand */
-            text-align: center; /* Centers text within the container */
+            max-width: 900px; /* Increased max-width to make the white space big */
+            width: 95%; /* Use a percentage width for responsiveness, allowing it to expand */
+            text-align: center; /* Centers heading and paragraph within the container */
             position: relative; /* Needed for z-index */
             z-index: 10; /* Ensures content is above other elements if any */
         }
@@ -59,41 +58,44 @@
             font-weight: bold; /* Made the paragraph text bold */
         }
 
-        /* Unordered List Styling - Now strictly vertical */
+        /* Unordered List Styling - Now a responsive grid to hold thin textboxes horizontally */
         ul {
             list-style: none; /* Removes default bullet points */
             padding: 0; /* Removes default padding */
-            margin: 0; /* Removes default margin */
-            display: grid; /* Retain grid for simple column control */
-            grid-template-columns: 1fr; /* Force a single column for vertical stacking */
-            gap: 1rem; /* Space between grid items (folders) */
+            margin: 0 auto; /* Centers the ul horizontally within its parent */
+            display: grid; /* Changed to CSS Grid for horizontal and vertical arrangement */
+            /* Creates responsive columns: at least 180px wide, as many as fit */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Allows thin textboxes to arrange horizontally */
+            gap: 1rem; /* Space between grid items (textboxes) */
+            justify-content: center; /* Center the grid items within the ul */
         }
 
         /* List Item Styling */
         li {
-            background-color: #f0f0f0; /* Very light grey for individual list items on white background */
+            background-color: #ffe0b2; /* Changed to light orange for individual list items */
             border-radius: 0.75rem; /* Rounded corners for list items */
             /* Smooth transitions for hover effects */
             transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
             position: relative; /* Essential for positioning the pseudo-element icon */
             display: flex; /* Use flexbox to center content (icon + link text) */
             align-items: center;
-            justify-content: center;
-            padding: 1.5rem 1.25rem; /* Increased vertical padding to make it longer */
+            justify-content: center; /* Center content within each textbox */
+            padding: 1.5rem 1rem; /* Adjusted vertical padding, reduced horizontal padding for thinness */
             border: 1px solid #e0e0e0; /* Subtle border for definition */
             height: auto; /* Changed height to auto to accommodate increased padding */
+            text-align: center; /* Ensure text inside the textbox is centered */
         }
 
         /* List Item Hover Effect */
         li:hover {
             transform: translateY(-5px); /* Lifts the item slightly on hover */
-            background-color: #e8e8e8; /* Becomes slightly darker grey on hover */
+            background-color: #ffcc80; /* Becomes slightly darker orange on hover */
             border-color: #ffa500; /* Orange border on hover for accent */
         }
 
         /* Anchor (Link) Styling */
         a {
-            color: #333333; /* Dark grey for the link text on white background */
+            color: #333333; /* Dark grey for the link text on light orange background */
             text-decoration: none; /* Removes the default underline */
             font-size: 1.2rem; /* Good size for clickable links */
             font-weight: 600; /* Semi-bold text */
@@ -101,7 +103,7 @@
             align-items: center;
             gap: 0.5rem; /* Space between the list item icon and the link text */
             width: 100%; /* Makes the entire list item area clickable */
-            justify-content: center; /* Centers the link text */
+            justify-content: center; /* Aligns link text to the center within its box */
         }
 
         /* Anchor (Link) Hover Effect */
@@ -133,7 +135,7 @@
                 font-size: 1.1rem; /* Slightly smaller link text */
             }
             ul {
-                grid-template-columns: 1fr; /* Always force single column on very small screens */
+                grid-template-columns: 1fr; /* Force single column on very small screens */
             }
         }
     </style>
