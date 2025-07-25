@@ -1,16 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Class Links</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Links</title>
+    <!-- Google Fonts - Inter for a modern, clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /*
+         * General Body Styling
+         * Sets the overall black background and light text.
+         * Uses flexbox to center the main content vertically and horizontally.
+         */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #222222; /* Slightly lighter, less intense black/dark grey */
+            color: #cccccc; /* Light grey for general text on black background */
+            min-height: 100vh; /* Ensures the body takes at least the full viewport height */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers content horizontally */
+            justify-content: center; /* Centers content vertically */
+            padding: 0.5rem; /* Reduced padding for a thin black background */
+            box-sizing: border-box; /* Includes padding in element's total width and height */
+        }
+
+        /*
+         * Main Content Container
+         * This div wraps your existing HTML content to apply a distinct background,
+         * rounded corners, and shadow, creating a focused content area.
+         */
+        .content-container {
+            background-color: #ffffff; /* Changed to white for the content box */
+            padding: 2.5rem; /* Generous padding inside the box */
+            border-radius: 1.5rem; /* Significantly rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Softer shadow for lighter background */
+            max-width: 900px; /* Increased max-width to make the white space big */
+            width: 95%; /* Use a percentage width for responsiveness, allowing it to expand */
+            text-align: center; /* Centers heading and paragraph within the container */
+            position: relative; /* Needed for z-index */
+            z-index: 10; /* Ensures content is above other elements if any */
+        }
+
+        /* Heading Styling */
+        h1 {
+            color: #ffa500; /* Vibrant orange for the main heading */
+            font-size: 2.5rem; /* Large font size for prominence */
+            font-weight: 700; /* Bold font weight */
+            margin-bottom: 1rem; /* Space below the heading */
+        }
+
+        /* Paragraph Styling */
+        p {
+            font-size: 1.1rem; /* Slightly larger font for readability */
+            margin-bottom: 2rem; /* More space below the paragraph */
+            color: #555555; /* Darker grey for emphasis, contrasts with white container */
+            font-weight: bold; /* Made the paragraph text bold */
+        }
+
+        /* Unordered List Styling - Now a responsive grid to hold thin textboxes horizontally */
+        ul {
+            list-style: none; /* Removes default bullet points */
+            padding: 0; /* Removes default padding */
+            margin: 0 auto; /* Centers the ul horizontally within its parent */
+            display: grid; /* Changed to CSS Grid for horizontal and vertical arrangement */
+            /* Creates responsive columns: at least 180px wide, as many as fit */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Allows thin textboxes to arrange horizontally */
+            gap: 1rem; /* Space between grid items (textboxes) */
+            justify-content: center; /* Center the grid items within the ul */
+        }
+
+        /* List Item Styling */
+        li {
+            background-color: #ffe0b2; /* Changed to light orange for individual list items */
+            border-radius: 0.75rem; /* Rounded corners for list items */
+            /* Smooth transitions for hover effects */
+            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            position: relative; /* Essential for positioning the pseudo-element icon */
+            display: flex; /* Use flexbox to center content (icon + link text) */
+            align-items: center;
+            justify-content: center; /* Center content within each textbox */
+            padding: 1.5rem 1rem; /* Adjusted vertical padding, reduced horizontal padding for thinness */
+            border: 1px solid #e0e0e0; /* Subtle border for definition */
+            height: auto; /* Changed height to auto to accommodate increased padding */
+            text-align: center; /* Ensure text inside the textbox is centered */
+        }
+
+        /* List Item Hover Effect */
+        li:hover {
+            transform: translateY(-5px); /* Lifts the item slightly on hover */
+            background-color: #ffcc80; /* Becomes slightly darker orange on hover */
+            border-color: #ffa500; /* Orange border on hover for accent */
+        }
+
+        /* Anchor (Link) Styling */
+        a {
+            color: #333333; /* Dark grey for the link text on light orange background */
+            text-decoration: none; /* Removes the default underline */
+            font-size: 1.2rem; /* Good size for clickable links */
+            font-weight: 600; /* Semi-bold text */
+            display: flex; /* Use flexbox to align the icon and text */
+            align-items: center;
+            gap: 0.5rem; /* Space between the list item icon and the link text */
+            width: 100%; /* Makes the entire list item area clickable */
+            justify-content: center; /* Aligns link text to the center within its box */
+        }
+
+        /* Anchor (Link) Hover Effect */
+        a:hover {
+            color: #ffa500; /* Changes to orange on hover for interactivity */
+        }
+
+        /* Removed folder icon for list items using a pseudo-element */
+        /* li::before {
+            content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'%3E%3C/path%3E%3C/svg%3E");
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.75rem;
+        } */
+
+        /* Responsive adjustments for smaller screens (e.g., mobile phones) */
+        @media (max-width: 640px) {
+            .content-container {
+                padding: 1.5rem; /* Reduce padding on small screens */
+                width: 95%; /* Make content container full width on small screens */
+            }
+            h1 {
+                font-size: 2rem; /* Smaller heading on small screens */
+            }
+            p {
+                font-size: 1rem; /* Smaller paragraph text */
+            }
+            a {
+                font-size: 1.1rem; /* Slightly smaller link text */
+            }
+            ul {
+                grid-template-columns: 1fr; /* Force single column on very small screens */
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Welcome, Garde 7 Students!</h1>
-  <p>Click the links below to access your resources:</p>
-  <ul>
-    <li><a href="Chart.xlsx">1. Download Chart Excel file</a></li>
-     <li><a href="4. Formatting Charts, Trends and patterns in data.xlsx">2. Download Formatting chart file</a></li>
-     <li><a href="Garde 7 Chart revision.html">3. Chart Revision</a></li>
-            </ul>
+    <!-- Main content container to apply central styling and visual grouping -->
+    <div class="content-container">
+        <h1>
+            Welcome, Grade 7 Students!
+        </h1>
+        <p><b>Click the links below to access your resources:</b></p>
+        <ul>
+            <li><a href="Chart.xlsx">1. Download Chart Excel file</a></li>
+            <li><a href="4. Formatting Charts, Trends and patterns in data.xlsx">2. Download Formatting chart file</a></li>
+            <li><a href="Garde 7 Chart revision.html">3. Chart Revision</a></li>
+        </ul>
+    </div>
 </body>
 </html>
