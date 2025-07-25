@@ -9,28 +9,20 @@
     <style>
         /*
          * General Body Styling
-         * Sets the overall black background, light grey text, and Inter font.
+         * Sets the overall black background and light text.
          * Uses flexbox to center the main content vertically and horizontally.
-         * Includes a subtle, repeating pattern of folder icons in the background
-         * to fill the page as requested.
          */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1a1a1a; /* Deep black background */
-            color: #cccccc; /* Soft light grey for general text */
+            background-color: #222222; /* Slightly lighter, less intense black/dark grey */
+            color: #cccccc; /* Light grey for general text on black background */
             min-height: 100vh; /* Ensures the body takes at least the full viewport height */
             display: flex;
             flex-direction: column;
             align-items: center; /* Centers content horizontally */
             justify-content: center; /* Centers content vertically */
-            padding: 2rem; /* Padding around the content for spacing */
+            padding: 1rem; /* Increased padding to make the side thickness a bit more */
             box-sizing: border-box; /* Includes padding in element's total width and height */
-
-            /* Subtle repeating background folder pattern */
-            /* Using data:image/svg+xml to embed the SVG directly, saving HTTP requests */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: repeat; /* Repeats the icon across the background */
-            background-size: 80px 80px; /* Size of each repeating icon */
         }
 
         /*
@@ -39,15 +31,15 @@
          * rounded corners, and shadow, creating a focused content area.
          */
         .content-container {
-            background-color: #2a2a2a; /* Darker grey for the content box */
+            background-color: #ffffff; /* Changed to white for the content box */
             padding: 2.5rem; /* Generous padding inside the box */
             border-radius: 1.5rem; /* Significantly rounded corners */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Soft, dark shadow for depth */
-            max-width: 90%; /* Ensures it's responsive on smaller screens */
-            width: 500px; /* Fixed width for desktop view */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Softer shadow for lighter background */
+            max-width: 800px; /* Increased max-width to allow more horizontal space for grid */
+            width: 90%; /* Use a percentage width for responsiveness, allowing it to expand */
             text-align: center; /* Centers text within the container */
             position: relative; /* Needed for z-index */
-            z-index: 10; /* Ensures content is above the subtle background icons */
+            z-index: 10; /* Ensures content is above other elements if any */
         }
 
         /* Heading Styling */
@@ -56,30 +48,31 @@
             font-size: 2.5rem; /* Large font size for prominence */
             font-weight: 700; /* Bold font weight */
             margin-bottom: 1rem; /* Space below the heading */
-            display: flex; /* Use flexbox to align the icon and text horizontally */
-            align-items: center; /* Vertically aligns items in the center */
-            justify-content: center; /* Horizontally centers items */
-            gap: 0.75rem; /* Space between the large folder icon and the text */
         }
 
         /* Paragraph Styling */
         p {
             font-size: 1.1rem; /* Slightly larger font for readability */
             margin-bottom: 2rem; /* More space below the paragraph */
-            color: #e0e0e0; /* A slightly lighter grey for emphasis */
+            color: #555555; /* Darker grey for emphasis, contrasts with white container */
+            font-weight: bold; /* Made the paragraph text bold */
         }
 
-        /* Unordered List Styling */
+        /* Unordered List Styling - Now a responsive grid! */
         ul {
             list-style: none; /* Removes default bullet points */
             padding: 0; /* Removes default padding */
             margin: 0; /* Removes default margin */
+            display: grid; /* Changed to CSS Grid for horizontal and vertical arrangement */
+            /* Creates responsive columns: at least 200px wide, as many as fit */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem; /* Space between grid items (folders) */
         }
 
         /* List Item Styling */
         li {
-            margin-bottom: 1rem; /* Space between list items */
-            background-color: #3a3a3a; /* Medium grey for individual list items */
+            /* Removed margin-bottom as gap handles spacing in grid */
+            background-color: #f0f0f0; /* Very light grey for individual list items on white background */
             border-radius: 0.75rem; /* Rounded corners for list items */
             /* Smooth transitions for hover effects */
             transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
@@ -88,19 +81,20 @@
             align-items: center;
             justify-content: center;
             padding: 0.75rem 1.25rem; /* Padding inside each list item */
-            border: 1px solid #4a4a4a; /* Subtle border for definition */
+            border: 1px solid #e0e0e0; /* Subtle border for definition */
+            height: 60px; /* Fixed height for uniform folder size */
         }
 
         /* List Item Hover Effect */
         li:hover {
             transform: translateY(-5px); /* Lifts the item slightly on hover */
-            background-color: #4a4a4a; /* Becomes lighter grey on hover */
+            background-color: #e8e8e8; /* Becomes slightly darker grey on hover */
             border-color: #ffa500; /* Orange border on hover for accent */
         }
 
         /* Anchor (Link) Styling */
         a {
-            color: #f0f0f0; /* Very light grey for the link text */
+            color: #333333; /* Dark grey for the link text on white background */
             text-decoration: none; /* Removes the default underline */
             font-size: 1.2rem; /* Good size for clickable links */
             font-weight: 600; /* Semi-bold text */
@@ -116,20 +110,10 @@
             color: #ffa500; /* Changes to orange on hover for interactivity */
         }
 
-        /* Large Folder Icon SVG (used within the h1) */
-        .large-folder-icon {
-            width: 60px; /* Size of the main folder icon */
-            height: 60px;
-            fill: #ffa500; /* Fills the SVG with orange color */
-            /* If the SVG uses stroke instead of fill, uncomment the line below */
-            /* stroke: #ffa500; */
-        }
-
         /* Folder icon for list items using a pseudo-element */
-        /* This adds a small folder icon before each link without changing the HTML structure */
         li::before {
-            /* Embedding the SVG directly as content */
-            content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ffa500' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'%3E%3C/path%3E%3C/svg%3E");
+            /* Embedding the SVG directly as content, changed stroke to a darker grey */
+            content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'%3E%3C/path%3E%3C/svg%3E");
             display: inline-block; /* Allows setting width/height and margin */
             vertical-align: middle; /* Aligns icon with text */
             margin-right: 0.75rem; /* Space between icon and link text */
@@ -139,7 +123,7 @@
         @media (max-width: 640px) {
             .content-container {
                 padding: 1.5rem; /* Reduce padding on small screens */
-                width: 100%; /* Make content container full width */
+                width: 95%; /* Make content container full width on small screens */
             }
             h1 {
                 font-size: 2rem; /* Smaller heading on small screens */
@@ -150,9 +134,8 @@
             a {
                 font-size: 1.1rem; /* Slightly smaller link text */
             }
-            .large-folder-icon {
-                width: 45px; /* Smaller main folder icon */
-                height: 45px;
+            ul {
+                grid-template-columns: 1fr; /* Force single column on very small screens */
             }
         }
     </style>
@@ -161,13 +144,9 @@
     <!-- Main content container to apply central styling and visual grouping -->
     <div class="content-container">
         <h1>
-            <!-- Large folder icon SVG within the heading for visual impact -->
-            <svg class="large-folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-            </svg>
-            Welcome, Students!
+            Christel House India
         </h1>
-        <p>Click the links below to access your grade resources:</p>
+        <p><b>Click the links below to access your grade resources:</b></p>
         <ul>
             <li><a href="Grade 4">Grade 4 </a></li>
             <li><a href="Grade 5">Grade 5 </a></li>
