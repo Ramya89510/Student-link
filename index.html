@@ -1,20 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Class Links</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Links</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Hide default list bullets */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
 </head>
-<body>
-  <h1>Welcome, Students!</h1>
-  <p>Click the links below to access your grade resources:</p>
-  <ul>
-	<li><a href="Grade 4">Grade 4 </a></li>
-	<li><a href="Grade 5">Grade 5 </a></li>
-	<li><a href="Grade 6">Grade 6 </a></li>
-	<li><a href="Grade 7">Grade 7 </a></li>
-   <li><a href="Grade 8">Grade 8 </a></li>
-    <li><a href="Grade 9">Grade 9 </a></li>
-	<li><a href="Grade 10">Grade 10 </a></li>
+<body class="bg-black min-h-screen flex items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white p-8 md:p-12 rounded-xl shadow-lg w-full lg:max-w-3xl mx-auto border-2 border-black">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-orange-500 mb-4 text-center">Christel House India</h1>
+        <p class="text-gray-700 text-lg mb-8 text-center font-bold">Click the links below to access your grade resources:</p>
+        <!-- Flexbox for horizontal arrangement, with wrapping -->
+        <ul class="flex flex-wrap justify-center gap-4">
+            <!-- Grade 4 Link -->
+            <li class="w-full sm:w-[calc(50%-0.5rem)]">
+                <a href="#" class="flex items-center p-6 bg-gray-50 hover:bg-orange-100 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md justify-center">
+                    <!-- Folder Icon SVG - Filled with grey color -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xl font-medium text-gray-800">Grade 4</span>
+                </a>
+            </li>
+            <!-- Grade 5 Link -->
+            <li class="w-full sm:w-[calc(50%-0.5rem)]">
+                <a href="#" class="flex items-center p-6 bg-gray-50 hover:bg-orange-100 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md justify-center">
+                    <!-- Folder Icon SVG - Filled with grey color -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xl font-medium text-gray-800">Grade 5</span>
+                </a>
+            </li>
+            <!-- Grade 6 Link -->
+            <li class="w-full sm:w-[calc(50%-0.5rem)]">
+                <a href="#" class="flex items-center p-6 bg-gray-50 hover:bg-orange-100 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md justify-center">
+                    <!-- Folder Icon SVG - Filled with grey color -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xl font-medium text-gray-800">Grade 6</span>
+                </a>
+            </li>
+            <!-- Grade 7 Link -->
+            <li class="w-full sm:w-[calc(50%-0.5rem)]">
+                <a href="#" class="flex items-center p-6 bg-gray-50 hover:bg-orange-100 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md justify-center">
+                    <!-- Folder Icon SVG - Filled with grey color -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xl font-medium text-gray-800">Grade 7</span>
+                </a>
+            </li>
+            <!-- Grade 8 Link -->
+            <li class="w-full sm:w-[calc(50%-0.5rem)]">
+                <a href="#" class="flex items-center p-6 bg-gray-50 hover:bg-orange-100 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md justify-center">
+                    <!-- Folder Icon SVG - Filled with grey color -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xl font-medium text-gray-800">Grade 8</span>
+                </a>
+            </li>
+            <!-- Grade 9 Link -->
+            <li class="w-full sm:w-[calc(50%-0.5rem)]">
+                <a href="#" class="flex items-center p-6 bg-gray-50 hover:bg-orange-100 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md justify-center">
+                    <!-- Folder Icon SVG - Filled with grey color -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xl font-medium text-gray-800">Grade 9</span>
+                </a>
+            </li>
+            <!-- Grade 10 Link -->
+            <li class="w-full sm:w-[calc(50%-0.5rem)]">
+                <a href="#" class="flex items-center p-6 bg-gray-50 hover:bg-orange-100 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md justify-center">
+                    <!-- Folder Icon SVG - Filled with grey color -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xl font-medium text-gray-800">Grade 10</span>
+                </a>
+            </li>
         </ul>
+    </div>
 </body>
 </html>
