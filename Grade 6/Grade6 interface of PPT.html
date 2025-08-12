@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerPoint Interface Quiz</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for a clean look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem; /* Rounded corners */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Container for the SVG diagram */
+        .svg-container {
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            position: relative;
+            margin-top: 1rem;
+        }
+        .svg-container svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Style for quiz options */
+        input[type="radio"] {
+            accent-color: #2563eb; /* Blue accent color */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="container mx-auto p-8 card">
+            
+            <!-- Notes Section with labeled diagram -->
+            <div id="notes-page" class="space-y-6">
+                <h1 class="text-3xl font-bold text-center text-gray-800">PowerPoint Interface Notes</h1>
+                <p class="text-center text-gray-600 mb-8">Review the labeled diagram of the PowerPoint interface below before starting the quiz.</p>
+                
+                <div class="svg-container">
+                    <svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Main Window Frame -->
+                        <rect x="50" y="50" width="1180" height="620" fill="#f8fafc" stroke="#60a5fa" stroke-width="3" rx="10"/>
+
+                        <!-- Title Bar (labeled 1) with hover explanation -->
+                        <!-- Using 'data-title' attribute for custom tooltip text -->
+                        <g id="title-bar-group" data-title="The bar at the very top showing the file name.">
+                            <rect x="50" y="50" width="1180" height="40" fill="#60a5fa"/>
+                            <text x="640" y="75" font-family="Inter, sans-serif" font-size="20" fill="#fff" text-anchor="middle" font-weight="bold">Presentation1 - PowerPoint</text>
+                            <line x1="200" y1="70" x2="100" y2="70" stroke="#1e40af" stroke-width="2" />
+                            <text x="210" y="75" font-family="Inter, sans-serif" font-size="20" fill="#1e40af" font-weight="bold">1. Title Bar</text>
+                            <path d="M100,70 L110,65 L110,75 Z" fill="#1e40af" />
+                        </g>
+                        
+                        <!-- Ribbon (labeled 2) with hover explanation -->
+                        <g id="ribbon-group" data-title="The main command center with tabs and tools.">
+                            <rect x="50" y="90" width="1180" height="80" fill="#fff" stroke="#d1d5db" stroke-width="1"/>
+                            <line x1="700" y1="120" x2="600" y2="120" stroke="#1e40af" stroke-width="2" />
+                            <text x="710" y="125" font-family="Inter, sans-serif" font-size="20" fill="#1e40af" font-weight="bold">2. Ribbon</text>
+                            <path d="M600,120 L610,115 L610,125 Z" fill="#1e40af" />
+                        </g>
+                        
+                        <!-- Tabs & Groups (labeled 3) with hover explanation -->
+                        <g id="tabs-groups-group" data-title="Sections on the ribbon for organizing different tools and commands.">
+                            <rect x="60" y="95" width="60" height="25" fill="#e0e7ff" stroke="#60a5fa" stroke-width="1"/>
+                            <text x="90" y="113" font-family="Inter, sans-serif" font-size="16" fill="#1e40af">File</text>
+                            <rect x="120" y="95" width="60" height="25" fill="#e0e7ff" stroke="#60a5fa" stroke-width="1"/>
+                            <text x="150" y="113" font-family="Inter, sans-serif" font-size="16" fill="#1e40af">Home</text>
+                            <line x1="800" y1="150" x2="700" y2="150" stroke="#1e40af" stroke-width="2" />
+                            <text x="810" y="155" font-family="Inter, sans-serif" font-size="20" fill="#1e40af" font-weight="bold">3. Tabs & Groups</text>
+                            <path d="M700,150 L710,145 L710,155 Z" fill="#1e40af" />
+                        </g>
+
+                        <!-- Thumbnails (labeled 5) with hover explanation -->
+                        <g id="thumbnails-group" data-title="Small previews of each slide, used for navigation.">
+                            <rect x="50" y="170" width="150" height="450" fill="#f8fafc" stroke="#d1d5db" stroke-width="1"/>
+                            <rect x="60" y="180" width="130" height="80" fill="#e0e7ff" stroke="#60a5fa" stroke-width="1"/>
+                            <text x="125" y="225" font-family="Inter, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle">Slide 1</text>
+                            <rect x="60" y="270" width="130" height="80" fill="#e0e7ff" stroke="#60a5fa" stroke-width="1"/>
+                            <text x="125" y="315" font-family="Inter, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle">Slide 2</text>
+                            <line x1="250" y1="400" x2="200" y2="400" stroke="#1e40af" stroke-width="2" />
+                            <text x="260" y="405" font-family="Inter, sans-serif" font-size="20" fill="#1e40af" font-weight="bold">5. Thumbnails</text>
+                            <path d="M200,400 L210,395 L210,405 Z" fill="#1e40af" />
+                        </g>
+                        
+                        <!-- Slide Pane (labeled 4) with hover explanation -->
+                        <g id="slide-pane-group" data-title="The large main area where you create and edit your slide content.">
+                            <rect x="200" y="170" width="950" height="450" fill="#fff" stroke="#d1d5db" stroke-width="1"/>
+                            <text x="675" y="400" font-family="Inter, sans-serif" font-size="40" fill="#64748b" text-anchor="middle">Slide Pane</text>
+                            <line x1="900" y1="420" x2="800" y2="420" stroke="#1e40af" stroke-width="2" />
+                            <text x="910" y="425" font-family="Inter, sans-serif" font-size="20" fill="#1e40af" font-weight="bold">4. Slide Pane</text>
+                            <path d="M800,420 L810,415 L810,425 Z" fill="#1e40af" />
+                        </g>
+
+                        <!-- Placeholder (labeled 6) with hover explanation -->
+                        <g id="placeholder-group" data-title="A dotted box on a slide for adding text or images.">
+                            <rect x="300" y="250" width="750" height="200" fill="#f8fafc" stroke="#93c5fd" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="675" y="350" font-family="Inter, sans-serif" font-size="24" fill="#93c5fd" text-anchor="middle">Click to add text</text>
+                            <line x1="900" y1="500" x2="800" y2="450" stroke="#1e40af" stroke-width="2" />
+                            <text x="910" y="505" font-family="Inter, sans-serif" font-size="20" fill="#1e40af" font-weight="bold">6. Placeholder</text>
+                            <path d="M800,450 L810,445 L810,455 Z" fill="#1e40af" />
+                        </g>
+
+                        <!-- Status Bar (labeled 7) with hover explanation -->
+                        <g id="status-bar-group" data-title="The bar at the bottom showing information like slide number and zoom.">
+                            <rect x="50" y="620" width="1180" height="40" fill="#e2e8f0" stroke="#d1d5db" stroke-width="1"/>
+                            <text x="100" y="645" font-family="Inter, sans-serif" font-size="14" fill="#475569">Slide 1 of 2</text>
+                            <text x="1150" y="645" font-family="Inter, sans-serif" font-size="14" fill="#475569">Zoom: 100%</text>
+                            <line x1="700" y1="640" x2="600" y2="640" stroke="#1e40af" stroke-width="2" />
+                            <text x="710" y="645" font-family="Inter, sans-serif" font-size="20" fill="#1e40af" font-weight="bold">7. Status Bar</text>
+                            <path d="M600,640 L610,635 L610,645 Z" fill="#1e40af" />
+                        </g>
+
+                        <!-- Scroll Bar (labeled 8) with hover explanation -->
+                        <g id="scroll-bar-group" data-title="Used to scroll up and down the slide or thumbnail pane.">
+                            <rect x="1150" y="170" width="30" height="450" fill="#d1d5db"/>
+                            <rect x="1155" y="250" width="20" height="100" fill="#9ca3af"/>
+                            <line x1="1100" y1="400" x2="1140" y2="400" stroke="#1e40af" stroke-width="2" />
+                            <text x="1090" y="405" font-family="Inter, sans-serif" font-size="20" fill="#1e40af" text-anchor="end" font-weight="bold">8. Scroll Bar</text>
+                            <path d="M1140,400 L1130,395 L1130,405 Z" fill="#1e40af" />
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="start-quiz-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300">
+                        Start Quiz
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Section -->
+            <div id="quiz-page" class="hidden">
+                <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">PowerPoint Interface Quiz</h1>
+                
+                <!-- Quiz questions will be dynamically inserted here -->
+                <div id="questions-container" class="space-y-6"></div>
+
+                <div id="results" class="hidden text-center mt-8 p-4 rounded-lg bg-gray-100">
+                    <h3 class="text-2xl font-bold text-gray-800">Your Results</h3>
+                    <p id="score-text" class="text-xl mt-2"></p>
+                    <button id="try-again-btn" class="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <!-- Custom Tooltip Element -->
+    <div id="custom-tooltip" class="absolute hidden bg-gray-800 text-white text-xs p-2 rounded-md shadow-lg pointer-events-none z-50"></div>
+
+    <script>
+        // JavaScript for the quiz logic and custom tooltips
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM elements
+            const notesPage = document.getElementById('notes-page');
+            const quizPage = document.getElementById('quiz-page');
+            const startQuizBtn = document.getElementById('start-quiz-btn');
+            const questionsContainer = document.getElementById('questions-container');
+            const resultsDiv = document.getElementById('results');
+            const scoreText = document.getElementById('score-text');
+            const tryAgainBtn = document.getElementById('try-again-btn');
+            const customTooltip = document.getElementById('custom-tooltip');
+
+            // Quiz questions data
+            const quizQuestions = [
+                {
+                    question: "What is the long bar at the top of the PowerPoint window that shows the presentation's name?",
+                    options: ["Ribbon", "Status Bar", "Title Bar", "Slide Pane"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "The area that contains tabs like Home, Insert, and Design is called the...",
+                    options: ["Status Bar", "Ribbon", "Thumbnail Pane", "Placeholder"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "The small images of your slides on the left side of the screen are called...",
+                    options: ["Groups", "Placeholders", "Thumbnails", "Views"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "What is the main area where you create and edit your slide content?",
+                    options: ["Status Bar", "Slide Pane", "Title Bar", "Ribbon"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Dotted boxes on a slide that hold text or other content are known as...",
+                    options: ["Groups", "Placeholders", "Tabs", "Views"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which element shows you which slide you are currently on and the total number of slides?",
+                    options: ["Title Bar", "Slide Pane", "Thumbnails", "Status Bar"],
+                    correctAnswer: 3
+                },
+                {
+                    question: "The 'File' and 'Home' buttons are examples of what part of the interface?",
+                    options: ["Ribbon Groups", "Tabs", "Placeholders", "Status Bar"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which part of the interface is used to move up and down through your slides?",
+                    options: ["Slide Pane", "Placeholder", "Scroll Bar", "Ribbon"],
+                    correctAnswer: 2
+                },
+                {
+                    question: "Which of these is NOT a function of the Ribbon?",
+                    options: ["Changing text font and size", "Inserting images and shapes", "Running the slideshow", "Showing the filename"],
+                    correctAnswer: 3
+                },
+                {
+                    question: "The main purpose of the 'Thumbnails' pane is to...",
+                    options: ["Display the current slide", "Edit the text on slides", "Provide a quick overview and easy navigation of all slides", "Show the presentation's name"],
+                    correctAnswer: 2
+                }
+            ];
+
+            // Event listeners for the quiz flow
+            startQuizBtn.addEventListener('click', () => {
+                notesPage.classList.add('hidden');
+                quizPage.classList.remove('hidden');
+                renderQuiz();
+            });
+
+            tryAgainBtn.addEventListener('click', () => {
+                notesPage.classList.remove('hidden');
+                quizPage.classList.add('hidden');
+                resultsDiv.classList.add('hidden');
+                questionsContainer.innerHTML = ''; // Clear questions
+            });
+
+            // Function to render the quiz questions
+            function renderQuiz() {
+                questionsContainer.innerHTML = ''; // Clear any previous questions
+                quizQuestions.forEach((q, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.className = 'p-6 card';
+                    questionDiv.innerHTML = `
+                        <p class="text-lg font-semibold text-gray-800 mb-4">${q.question}</p>
+                        <div class="space-y-2">
+                            ${q.options.map((option, optionIndex) => `
+                                <label class="flex items-center space-x-2 cursor-pointer text-gray-700 hover:text-blue-600 transition duration-150">
+                                    <input type="radio" name="question-${index}" value="${optionIndex}" class="h-4 w-4">
+                                    <span>${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    `;
+                    questionsContainer.appendChild(questionDiv);
+                });
+
+                // Add a submit button at the end
+                const submitBtn = document.createElement('button');
+                submitBtn.id = 'submit-quiz-btn';
+                submitBtn.textContent = 'Submit Answers';
+                submitBtn.className = 'mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300';
+                submitBtn.addEventListener('click', submitQuiz);
+                questionsContainer.appendChild(submitBtn);
+            }
+
+            // Function to submit the quiz and calculate results
+            function submitQuiz() {
+                let score = 0;
+                let allAnswered = true;
+
+                quizQuestions.forEach((q, index) => {
+                    const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+                    if (selectedOption) {
+                        const selectedValue = parseInt(selectedOption.value, 10);
+                        if (selectedValue === q.correctAnswer) {
+                            score++;
+                        }
+                    } else {
+                        allAnswered = false;
+                    }
+                });
+
+                if (!allAnswered) {
+                    // Use a custom modal or message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+                    messageBox.innerHTML = `
+                        <div class="bg-white p-8 rounded-lg shadow-xl text-center">
+                            <p class="text-xl font-semibold mb-4">Please answer all the questions before submitting.</p>
+                            <button onclick="this.parentElement.parentElement.remove()" class="bg-blue-600 text-white py-2 px-4 rounded-full mt-4">OK</button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+                    return;
+                }
+
+                const totalQuestions = quizQuestions.length;
+                const percentage = (score / totalQuestions) * 100;
+                
+                scoreText.textContent = `You scored ${score} out of ${totalQuestions} (${percentage.toFixed(0)}%).`;
+                
+                const questionsDiv = document.getElementById('questions-container');
+                questionsDiv.classList.add('hidden');
+                resultsDiv.classList.remove('hidden');
+            }
+
+            // === CUSTOM TOOLTIP LOGIC ===
+            const interactiveGroups = document.querySelectorAll('svg g[data-title]');
+
+            interactiveGroups.forEach(group => {
+                group.addEventListener('mouseenter', (e) => {
+                    // Get the custom tooltip text from the data-title attribute
+                    const tooltipText = group.getAttribute('data-title');
+                    
+                    if (tooltipText) {
+                        // Set the tooltip's content and make it visible
+                        customTooltip.textContent = tooltipText;
+                        customTooltip.style.display = 'block';
+                        
+                        // Position the tooltip based on the mouse position
+                        updateTooltipPosition(e);
+                    }
+                });
+
+                group.addEventListener('mouseleave', () => {
+                    // Hide the tooltip when the mouse leaves the group
+                    customTooltip.style.display = 'none';
+                });
+
+                group.addEventListener('mousemove', (e) => {
+                    // Continuously update the tooltip position as the mouse moves
+                    updateTooltipPosition(e);
+                });
+            });
+
+            function updateTooltipPosition(e) {
+                // Get the SVG's bounding box to calculate relative positions
+                const svgRect = e.currentTarget.closest('svg').getBoundingClientRect();
+                
+                // Calculate the position relative to the SVG container
+                let x = e.clientX - svgRect.left + 15; // Add an offset so it doesn't cover the cursor
+                let y = e.clientY - svgRect.top + 15;
+
+                // Adjust position to prevent it from going off-screen
+                const tooltipRect = customTooltip.getBoundingClientRect();
+                if (x + tooltipRect.width > svgRect.width) {
+                    x = svgRect.width - tooltipRect.width - 5;
+                }
+                if (y + tooltipRect.height > svgRect.height) {
+                    y = e.clientY - svgRect.top - tooltipRect.height - 5;
+                }
+
+                // Set the position of the tooltip element
+                customTooltip.style.left = `${x}px`;
+                customTooltip.style.top = `${y}px`;
+            }
+        });
+    </script>
+</body>
+</html>
